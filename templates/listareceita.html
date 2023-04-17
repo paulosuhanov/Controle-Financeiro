@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Minha Carteira - Receitas</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h2>Minha Carteira - Seu Aplicativo de controle Financeiro</h2>
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li role="presentation" >
+              <a href="/">Home</a></li>
+            <li role="presentation">
+              <a href="/cadastroreceita">Entrada - Cadastrar</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <h3 class="text-muted">Lista das Receitas Cadastradas</h3>
+    <table>
+      <tr>
+        <th>Data de Entrada</th>
+        <th>Valor de Entrada</th>
+        <th>Categoria</th>
+        <th>Descrição</th>
+      </tr>
+      {% for item in datas %}
+      <tr>
+        <td>{{item[0]}}</td>
+        <td>{{item[1]}}</td>
+        <td>{{item[2]}}</td>
+        <td>{{item[3]}}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>

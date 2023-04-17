@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Minha Carteira - Receitas</title>
+    </head>
+    <body>
+    <div class="container">
+      <div class="header">
+        <h2>Minha Carteira - Seu Aplicativo de controle Financeiro</h2>
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li role="presentation" >
+                <a href="/">Home</a></li>
+            <li role="presentation">
+                <a href="/listareceita">Entrada - Listar</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <h3 class="text-muted">Minha Carteira - Cadastrar nova Entrada de Receita</h3>
+    <div>
+        <form action="cadreceita" method="POST">
+            <table>
+                <tr>
+                    <th>Data de Entrada</th>
+                    <th>Valor de Entrada</th>
+                    <th>Categoria</th>
+                    <th>Descrição</th>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" name="DtEntrada"/>
+                    </td>
+                    <td>
+                        <input type="text" name="VlReceita"/>
+                    </td>
+                    <td>
+                        <input type="text" name="IdCatReceita"/>
+                    </td>
+                    <td>
+                        <input type="text" name="DescReceita"/>
+                    </td>
+                </tr>
+            </table>
+            <input type="submit" valie="enviar" />
+        </form>
+    </div>
+    </body>
+</html>

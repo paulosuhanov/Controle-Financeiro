@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Minha Carteira - Categorias</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h2>Minha Carteira - Seu Aplicativo de controle Financeiro</h2>
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li role="presentation" >
+                <a href="/">Home</a></li>
+            <li role="presentation">
+                <a href="/listacatreceita">Categorias - Listar</a></li>
+  
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <h3 class="text-muted">Minha Carteira - Cadastrar nova Categoria</h3>
+    <div>
+        <form action="cadcatreceita" method="POST">
+            <table>
+                <tr>
+                    <th>Nome da Categoria</th>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" name="nomeCatReceita"/>
+                    </td>
+                </tr>
+            </table>
+            <input type="submit" valie="enviar" />
+        </form>
+    </div>
+  </body>
+</html>
+
+

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Minha Carteira - Bancos</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h2>Minha Carteira - Seu Aplicativo de controle Financeiro</h2>
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li role="presentation" >
+              <a href="/">Home</a></li>
+            <li role="presentation">
+              <a href="/listabancos">Bancos - Listar</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <h3 class="text-muted">Minha Carteira - Cadastrar Novo Bancos</h3>
+    <div>
+      <form action="cadbanco" method="POST">
+        <table>
+          <tr>
+            <th>Código do Banco</th>
+            <th>Nome do Banco</th>
+          </tr>
+          <tr>
+            <td>
+              <input type="number" name="codBanco"/>
+            </td>
+            <td>
+              <input type="text" name="nomeBanco"/>
+            </td>
+          </tr>
+        </table>
+        <input type="submit" valie="enviar" />
+      </form>
+    </div>
+  </body>
+</html>
+
+
