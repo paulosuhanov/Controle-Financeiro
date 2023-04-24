@@ -1,3 +1,5 @@
+#!.venv/bin/python3
+
 import os
 from flask import Flask, render_template, json, request
 from flaskext.mysql import MySQL
@@ -45,7 +47,7 @@ def cadastro_Banco():
         if codBanco and nomeBanco:
             conn = mysql.connect()
             cursor = conn.cursor()
-            cursor.callproc('sp_criaBancoCustomizado',(codBanco, nomeBanco))
+            cursor.callproc('sp_criaBanco',(codBanco, nomeBanco))
             data = cursor.fetchall()
             if len(data) == 0:
                 conn.commit()           
@@ -58,16 +60,16 @@ def cadastro_Banco():
         cursor.close() 
         conn.close()
 
-@app.route('/listacatreceita',methods=['POST','GET'])
-def listaCatReceita():
+@app.route('/listacategoria',methods=['POST','GET'])
+def listaCategoria():
     try:
         conn = mysql.connect()
         cursor = conn.cursor()
-        cursor.execute ('select ID, CategoriaReceita from CatReceita')
+        cursor.execute ('select IdCategoria, NomeCategoria, TipoCategoria from Categoria')
         data = cursor.fetchall()
         print(data[0]);
         conn.commit()
-        return render_template('listacatreceita.html', datas=data)
+        return render_template('listacategoria.html', datas=data)
 
     except Exception as error:
         return json.dumps({'error':str(error)})
@@ -75,18 +77,19 @@ def listaCatReceita():
         cursor.close()
         conn.close()
 
-@app.route('/cadastrocatreceita')
-def cadastroCatReceitas():
-    return render_template('cadastrocatreceita.html')
+@app.route('/cadastrocategoria')
+def cadastroCategoria():
+    return render_template('cadastrocategoria.html')
 
-@app.route('/cadcatreceita',methods=['POST','GET'])
-def cadastro_CatReceita():
+@app.route('/cadcategoria',methods=['POST','GET'])
+def cadastro_Categoria():
     try:
-        _nomeCatReceita = request.form['nomeCatReceita']
-        if _nomeCatReceita:
+        _nomeCategoria = request.form['NomeCategoria']
+        _tipoCategoria = request.form['tipoCategoria']
+        if _nomeCategoria and _tipoCategoria:
             conn = mysql.connect()
             cursor = conn.cursor()
-            cursor.execute('insert into CatReceita (CategoriaReceita) VALUES (%s)', (_nomeCatReceita))
+            cursor.callproc('sp_CriaCategoria',(_nomeCategoria, _tipoCategoria))
             data = cursor.fetchall()
             if len(data) == 0:
                 conn.commit()           
@@ -103,9 +106,10 @@ def cadastro_CatReceita():
 @app.route('/listareceita',methods=['POST','GET'])
 def listaReceita():
     try:
+        _v_usuario = 'jsilva'
         conn = mysql.connect()
         cursor = conn.cursor()
-        cursor.execute ('select DtEntrada, VlReceita, IdCatReceita, DescReceita from Receita')
+        cursor.execute ('select Data, Valor, IdConta, IdCategoria, IdRecorrente, Efetuado, Descricao from Receita where IdUsuario = (%s)', (_v_usuario))
         data = cursor.fetchall()
         conn.commit()
         return render_template('listareceita.html', datas=data)
@@ -123,14 +127,18 @@ def cadastroReceitas():
 @app.route('/cadreceita',methods=['POST','GET'])
 def cadastro_Receita():
     try:
-        v_DtEntrada = request.form['DtEntrada']
-        v_VlReceita = float(request.form['VlReceita'])
-        v_IdCatReceita = int(request.form['IdCatReceita'])
-        v_DescReceita = request.form['DescReceita']
-        if v_DtEntrada and v_VlReceita and v_IdCatReceita and v_DescReceita:
+        _v_id_user = 'jsilva'
+        _v_id_conta = '34112340123456'
+        _v_dt = request.form['Data']
+        _v_vl = float(request.form['Valor'])
+        _v_idcat = int(request.form['IdCategoria'])
+        _v_idrec = int(request.form['IdRecorrente'])
+        _v_efet = int(request.form['Efetuado'])
+        _v_desc = request.form['Descricao']
+        if _v_dt and _v_vl and _v_idcat and _v_idrec and _v_efet and _v_desc and _v_id_conta:
             conn = mysql.connect()
             cursor = conn.cursor()
-            cursor.execute('insert into Receita (DtEntrada, VlReceita, IdCatReceita, DescReceita) VALUES (%s, %s, %s, %s)',(v_DtEntrada, v_VlReceita, v_IdCatReceita, v_DescReceita))
+            cursor.callproc('sp_Receita',(_v_id_user, _v_dt, _v_vl, _v_id_conta, _v_idcat, _v_idrec, _v_efet, _v_desc))
             data = cursor.fetchall()
             if len(data) == 0:
                 conn.commit()
@@ -143,6 +151,53 @@ def cadastro_Receita():
         cursor.close() 
         conn.close()
 
+@app.route('/listadebito',methods=['POST','GET'])
+def listaDebito():
+    try:
+        _v_usuario = 'jsilva'
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        cursor.execute ('select Data, Valor, IdConta, IdCategoria, IdRecorrente, Efetuado, Descricao from Debito where IdUsuario = (%s)', (_v_usuario))
+        data = cursor.fetchall()
+        conn.commit()
+        return render_template('listadebito.html', datas=data)
+
+    except Exception as error:
+        return json.dumps({'error':str(error)})
+    finally:
+        cursor.close()
+        conn.close()
+
+@app.route('/cadastrodebito')
+def cadastroDebito():
+    return render_template('cadastrodebito.html')
+
+@app.route('/caddebito',methods=['POST','GET'])
+def cadastro_Debito():
+    try:
+        _v_id_user = 'jsilva'
+        _v_id_conta = '34112340123456'
+        _v_dt = request.form['Data']
+        _v_vl = float(request.form['Valor'])
+        _v_idcat = int(request.form['IdCategoria'])
+        _v_idrec = int(request.form['IdRecorrente'])
+        _v_efet = int(request.form['Efetuado'])
+        _v_desc = request.form['Descricao']
+        if _v_dt and _v_vl and _v_idcat and _v_idrec and _v_efet and _v_desc and _v_id_conta:
+            conn = mysql.connect()
+            cursor = conn.cursor()
+            cursor.callproc('sp_Debito',(_v_id_user, _v_dt, _v_vl, _v_id_conta, _v_idcat, _v_idrec, _v_efet, _v_desc))
+            data = cursor.fetchall()
+            if len(data) == 0:
+                conn.commit()
+            else:
+                return json.dumps({'error':str(data[0])})
+            return render_template('index.html')
+    except Exception as error:
+        return json.dumps({'error':str(error)})
+    finally:
+        cursor.close() 
+        conn.close()
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))

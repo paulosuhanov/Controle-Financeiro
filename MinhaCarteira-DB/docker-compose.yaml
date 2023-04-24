@@ -1,0 +1,16 @@
+version: '2.1.1'
+services:
+
+  ### Mysql container - MinhaCarteira
+  mysql:
+    image: mysql/mysql-server:latest-aarch64
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./var/lib/mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: Secure987
+      MYSQL_DATABASE: MinhaCarteira
+      MYSQL_USER: pfelix
+      MYSQL_PASSWORD: Secure987
+      MYSQL_ROOT_HOST: '%'  # needs to be enclosed with quotes

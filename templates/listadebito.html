@@ -1,8 +1,7 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Minha Carteira - Categorias</title>
+    <title>Minha Carteira - Debito</title>
   </head>
   <body>
     <div class="container">
@@ -13,21 +12,31 @@
             <li role="presentation" >
               <a href="/">Home</a></li>
             <li role="presentation">
-              <a href="/cadastrocatreceita">Categoria - Cadastrar</a></li>
+              <a href="/cadastrodebito">Debito - Cadastrar</a></li>
           </ul>
         </nav>
       </div>
     </div>
-    <h3 class="text-muted">Minha Carteira - Lista das Cartegorias</h3>
+    <h3 class="text-muted">Lista dos Gastos Cadastradas</h3>
     <table>
       <tr>
-        <th>ID Da Categoria</th>
-        <th>Nome da Categoria</th>
+        <th>Data</th>
+        <th>Valor</th>
+        <th>Conta</th>
+        <th>Categoria</th>
+        <th>Recorrente</th>
+        <th>Efetuado</th>
+        <th>Descrição</th>
       </tr>
       {% for item in datas %}
       <tr>
         <td>{{item[0]}}</td>
-        <td>{{item[1]}}</td>
+        <td>R$ {{item[1]}}</td>
+        <td>{{item[2]}}</td>
+        <td>{{item[3]}}</td>
+        <td>{{item[4]}}</td>
+        <td>{{item[5]}}</td>
+        <td>{{item[6]}}</td>
       </tr>
       {% endfor %}
     </table>

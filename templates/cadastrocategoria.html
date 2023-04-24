@@ -12,7 +12,7 @@
             <li role="presentation" >
                 <a href="/">Home</a></li>
             <li role="presentation">
-                <a href="/listacatreceita">Categorias - Listar</a></li>
+                <a href="/listacategoria">Categorias - Listar</a></li>
   
           </ul>
         </nav>
@@ -20,14 +20,24 @@
     </div>
     <h3 class="text-muted">Minha Carteira - Cadastrar nova Categoria</h3>
     <div>
-        <form action="cadcatreceita" method="POST">
+        <form action="cadcategoria" method="POST">
             <table>
                 <tr>
                     <th>Nome da Categoria</th>
+                    <th>Tipo de Categoria</th>
                 </tr>
                 <tr>
                     <td>
-                        <input type="text" name="nomeCatReceita"/>
+                      <input type="text" name="NomeCategoria"/>
+                    </td>
+                    <td>
+                      <!---
+                      <input type="text" name="tipoCategoria"/>
+                      --->
+		                  <select name="tipoCategoria" id="tipoCategoria">
+                        <option value="Receita">Entrada</option>
+                        <option value="Debito">Débito</option>
+                      </select>
                     </td>
                 </tr>
             </table>
