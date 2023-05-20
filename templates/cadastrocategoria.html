@@ -3,6 +3,11 @@
   <head>
     <title>Minha Carteira - Categorias</title>
   </head>
+  <style>
+    table, th, td {
+      border:1px solid black;
+    }
+  </style>
   <body>
     <div class="container">
       <div class="header">
@@ -21,25 +26,25 @@
     <h3 class="text-muted">Minha Carteira - Cadastrar nova Categoria</h3>
     <div>
         <form action="cadcategoria" method="POST">
-            <table>
-                <tr>
-                    <th>Nome da Categoria</th>
-                    <th>Tipo de Categoria</th>
-                </tr>
-                <tr>
-                    <td>
-                      <input type="text" name="NomeCategoria"/>
-                    </td>
-                    <td>
-                      <!---
-                      <input type="text" name="tipoCategoria"/>
-                      --->
-		                  <select name="tipoCategoria" id="tipoCategoria">
-                        <option value="Receita">Entrada</option>
-                        <option value="Debito">Débito</option>
-                      </select>
-                    </td>
-                </tr>
+          <table style="width:70%">
+            <tr style="background-color:powderblue">
+              <th>Nome da Categoria</th>
+              <th>Tipo de Categoria</th>
+            </tr>
+              <tr>
+                <td>
+                  <input type="text" name="NomeCategoria"/>
+                </td>
+                <td>
+                  <!---
+                  <input type="text" name="tipoCategoria"/>
+                  --->
+                  <select name="tipoCategoria" id="tipoCategoria">
+                    <option value="Receita">Entrada</option>
+                    <option value="Debito">Débito</option>
+                  </select>
+                </td>
+            </tr>
             </table>
             <input type="submit" valie="enviar" />
         </form>

@@ -109,7 +109,25 @@ def listaReceita():
         _v_usuario = 'jsilva'
         conn = mysql.connect()
         cursor = conn.cursor()
-        cursor.execute ('select Data, Valor, IdConta, IdCategoria, IdRecorrente, Efetuado, Descricao from Receita where IdUsuario = (%s)', (_v_usuario))
+        cursor.execute (f"""
+            SELECT 
+                b.Data, 
+                b.Valor, 
+                e.NomeConta, 
+                c.NomeCategoria, 
+                d.NomeRecorrente, 
+                CASE WHEN 
+                    b.Efetuado = 0 
+                        THEN 'Não Efetuado' 
+                        ELSE 'Efetuado' END 
+                    AS Efetuado, 
+                b.Descricao
+            FROM Receita b
+                INNER JOIN Categoria c ON b.IdCategoria = c.IdCategoria
+                INNER JOIN Recorrente d ON b.IdRecorrente = d.IdRecorrente
+                INNER JOIN Conta e ON b.IdConta = e.IdConta
+                WHERE b.Idusuario = '{_v_usuario}'
+            """)
         data = cursor.fetchall()
         conn.commit()
         return render_template('listareceita.html', datas=data)
@@ -157,7 +175,24 @@ def listaDebito():
         _v_usuario = 'jsilva'
         conn = mysql.connect()
         cursor = conn.cursor()
-        cursor.execute ('select Data, Valor, IdConta, IdCategoria, IdRecorrente, Efetuado, Descricao from Debito where IdUsuario = (%s)', (_v_usuario))
+        cursor.execute (f"""
+            SELECT 
+                b.Data, 
+                (b.Valor)*-1, 
+                e.NomeConta, 
+                c.NomeCategoria, 
+                d.NomeRecorrente,
+                CASE WHEN 
+                    b.Efetuado = 0 
+                        THEN 'Não Efetuado' 
+                        ELSE 'Efetuado' END 
+                    AS Efetuado, 
+                b.Descricao
+                FROM Debito b
+                    INNER JOIN Categoria c ON b.IdCategoria = c.IdCategoria
+                    INNER JOIN Recorrente d ON b.IdRecorrente = d.IdRecorrente
+                    INNER JOIN Conta e ON b.IdConta = e.IdConta
+                WHERE b.IdUsuario = '{_v_usuario}';""")
         data = cursor.fetchall()
         conn.commit()
         return render_template('listadebito.html', datas=data)
@@ -199,6 +234,63 @@ def cadastro_Debito():
         cursor.close() 
         conn.close()
 
+@app.route('/extrato',methods=['POST','GET'])
+def extrato():
+    try:
+        _v_usuario = 'jsilva'
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        cursor.execute(f"""
+            (
+                SELECT 
+                    b.Data, 
+                    b.Valor, 
+                    e.NomeConta, 
+                    c.NomeCategoria, 
+                    d.NomeRecorrente, 
+                    CASE WHEN 
+                        b.Efetuado = 0 
+                            THEN 'Não Efetuado' 
+                            ELSE 'Efetuado' END 
+                        AS Efetuado, 
+                    b.Descricao
+                FROM Receita b
+                    INNER JOIN Categoria c ON b.IdCategoria = c.IdCategoria
+                    INNER JOIN Recorrente d ON b.IdRecorrente = d.IdRecorrente
+                    INNER JOIN Conta e ON b.IdConta = e.IdConta
+                    WHERE b.Idusuario = '{_v_usuario}')
+            UNION ALL
+            (
+                SELECT 
+                    b.Data, 
+                    (b.Valor)*-1, 
+                    e.NomeConta, 
+                    c.NomeCategoria, 
+                    d.NomeRecorrente,
+                    CASE WHEN 
+                        b.Efetuado = 0 
+                            THEN 'Não Efetuado' 
+                            ELSE 'Efetuado' END 
+                        AS Efetuado, 
+                    b.Descricao
+                FROM Debito b
+                    INNER JOIN Categoria c ON b.IdCategoria = c.IdCategoria
+                    INNER JOIN Recorrente d ON b.IdRecorrente = d.IdRecorrente
+                    INNER JOIN Conta e ON b.IdConta = e.IdConta
+                WHERE b.IdUsuario = '{_v_usuario}');
+        """)
+        data = cursor.fetchall()
+        conn.commit()
+    
+        return render_template('extrato.html', datas=data)
+
+    except Exception as error:
+        return json.dumps({'error':str(error)})
+    finally:
+        cursor.close()
+        conn.close()
+
+
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8080))
+    port = int(os.environ.get("PORT", 8081))
     app.run(host='0.0.0.0', port=port)
