@@ -277,7 +277,8 @@ def extrato():
                     INNER JOIN Categoria c ON b.IdCategoria = c.IdCategoria
                     INNER JOIN Recorrente d ON b.IdRecorrente = d.IdRecorrente
                     INNER JOIN Conta e ON b.IdConta = e.IdConta
-                WHERE b.IdUsuario = '{_v_usuario}');
+                WHERE b.IdUsuario = '{_v_usuario}')
+                ORDER BY Data ASC;
         """)
         data = cursor.fetchall()
         conn.commit()
