@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Minha Carteira - Debito</title>
+    </head>
+    <style>
+        table, th, td {
+          border:1px solid black;
+        }
+      </style>
+    <body>
+    <div class="container">
+      <div class="header">
+        <h2>Minha Carteira - Seu Aplicativo de controle Financeiro</h2>
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li role="presentation" >
+                <a href="/">Home</a></li>
+            <li role="presentation">
+                <a href="/listadebito">Debito - Listar</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <h3 class="text-muted">Minha Carteira - Cadastrar novo Gasto</h3>
+    <div>
+        <form action="caddebito" method="POST">
+            <table style="width:70%">
+                <tr style="background-color:powderblue">
+                    <th>Data</th>
+                    <th>Valor</th>
+                    <th>Categoria</th>
+                    <th>Recorrente</th>
+                    <th>Efetuado</th>
+                    <th>Descrição</th>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" name="Data"/>
+                    </td>
+                    <td>
+                        <input type="text" name="Valor"/>
+                    </td>
+                    <td>
+                        <input type="text" name="IdCategoria"/>
+                    </td>
+                    <td>
+                        <!-- <input type="text" name="IdRecorrente"/> -->
+                        <select name="IdRecorrente" id="Recorrente">
+                            <option value="1">Não Tem Recorrencia</option>
+                            <option value="2">Semanal</option>
+                            <option value="3">Quinzenal</option>
+                            <option value="4">Mensal</option>
+                            <option value="5">Bimestral</option>
+                            <option value="6">Trimestral</option>
+                            <option value="7">Semestral</option>
+                            <option value="8">Anual</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="Efetuado" id="Efetuado">
+                            <option value="0">Não Debitado</option>
+                            <option value="1">Debitado</option>
+                    </td>
+                    <td>
+                        <input type="text" name="Descricao"/>
+                    </td>
+                </tr>
+            </table>
+            <input type="submit" valie="enviar" />
+        </form>
+    </div>
+    </body>
+</html>
