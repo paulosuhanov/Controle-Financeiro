@@ -1,0 +1,16 @@
+,Usuario,Data,Valor,Conta,Categoria,Recorrente,Efetuado,Descrição
+0,paulo.felix,2023-01-05,8000.0,Itau Pessoal,Salário,0,1,Salario - 
+1,paulo.felix,2023-02-05,8000.0,Itau Pessoal,Salário,0,1,Salario 
+2,paulo.felix,2023-03-05,8000.0,Itau Pessoal,Salário,0,1,Salario 
+3,paulo.felix,2023-04-05,8000.0,Itau Pessoal,Salário,0,1,Salario 
+4,paulo.felix,2023-05-05,8000.0,Itau Pessoal,Salário,0,1,Salario 
+5,paulo.felix,2023-06-05,8000.0,Itau Pessoal,Salário,0,1,Salario 
+6,paulo.felix,2023-01-10,1000.0,Itau Pessoal,Comissão,0,1,Comissão
+7,paulo.felix,2023-03-10,500.0,Itau Pessoal,Comissão,0,1,Comissão
+8,paulo.felix,2023-05-10,1500.0,Itau Pessoal,Comissão,0,1,Comissão
+9,paulo.felix,2023-05-10,2000.0,Itau Familia,Investimentos,0,1,Comissão
+10,paulo.felix,2023-01-31,5000.0,Nubank Pessoal,Salário,0,1,Salario - Segunda parte
+11,paulo.felix,2023-02-28,5000.0,Nubank Pessoal,Salário,0,1,Salario - Segunda parte
+12,paulo.felix,2023-03-31,5000.0,Nubank Pessoal,Salário,0,1,Salario - Segunda parte
+13,paulo.felix,2023-04-30,5000.0,Nubank Pessoal,Salário,0,1,Salario - Segunda parte
+14,paulo.felix,2023-05-31,5000.0,Nubank Pessoal,Salário,0,1,Salario - Segunda parte
